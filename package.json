@@ -1,0 +1,13 @@
+{
+  "name": "fullstack-monorepo",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gglennd",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0"
+}
