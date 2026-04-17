@@ -1,0 +1,17 @@
+{
+  "name": "@workspace/api",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite --port 3000",
+    "lint": "eslint .",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@workspace/hono": "workspace:*"
+  },
+  "devDependencies": {
+    "@workspace/eslint-config": "workspace:*"
+  }
+}

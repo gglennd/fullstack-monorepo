@@ -1,0 +1,30 @@
+{
+  "name": "fullstack-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "author": "gglennd",
+  "license": "MIT",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "pnpm run -r --parallel --aggregate-output dev",
+    "build": "pnpm run -r build",
+    "lint": "pnpm run -r --parallel lint",
+    "lint:fix": "pnpm run -r --parallel lint --fix"
+  },
+  "dependencies": {
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.2.0",
+    "nitro": "3.0.260415-beta",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.8"
+  }
+}
