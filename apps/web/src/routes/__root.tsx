@@ -1,6 +1,8 @@
+/// <reference types="vite/client" />
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import globalCss from "@workspace/ui/global.css?url";
 import * as React from "react";
 
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
@@ -9,6 +11,7 @@ import { RootComponent } from "@/components/root-component";
 
 export const Route = createRootRouteWithContext()({
   head: () => ({
+    links: [{ rel: "stylesheet", href: globalCss }],
     meta: [
       {
         charSet: "utf-8",
