@@ -1,0 +1,15 @@
+{
+  "name": "@workspace/env",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@workspace/eslint-config": "workspace:*"
+  }
+}
