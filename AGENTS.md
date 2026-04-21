@@ -34,7 +34,7 @@ pnpm lint:fix       # Lint with auto-fix
 
 This repo has extensive agent skills in [.agents/skills](.agents/skills/). Run the `skill` tool to load them:
 
-- **TanStack**: start-core, router-core, react-start, react-router
+- **TanStack**: start-core, router-core, tanstack-form, react-start, react-router
 - **Auth**: better-auth-best-practices, organization-best-practices
 - **Database**: drizzle-orm-expert, database-migration, sql-optimization-patterns
 - **UI**: shadcn, radix-ui-design-system, tailwind-design-system

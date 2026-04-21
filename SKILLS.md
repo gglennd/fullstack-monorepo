@@ -6,6 +6,7 @@
 
 - **[start-core](../.agents/skills/tanstack-start-core/SKILL.md)** - TanStack Start core: Vite plugin, getRouter, root route
 - **[router-core](../.agents/skills/tanstack-router-core/SKILL.md)** - TanStack Router core: route trees, createRouter
+- **[tanstack-form](../.agents/skills/tanstack-form/SKILL.md)** - TanStack Form: headless, type-safe form state management, Zod/Valibot validation
 - **[react-router](../.agents/skills/tanstack-react-router/SKILL.md)** - Basic React Router overview
 - **[react-start](../.agents/skills/tanstack-react-start/SKILL.md)** - Basic TanStack Start overview
 

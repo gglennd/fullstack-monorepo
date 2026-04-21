@@ -1,61 +1,47 @@
+import { useForm } from "@tanstack/react-form";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@workspace/ui/components/button";
 import { Checkbox } from "@workspace/ui/components/checkbox";
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@workspace/ui/components/field";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
-import { ArrowRight, Eye, EyeOff, Github } from "@workspace/ui/icons";
+import { ArrowRight, Eye, EyeOff } from "@workspace/ui/icons";
 import { useState } from "react";
+import { z } from "zod";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address").min(1, "Email is required"),
+  password: z.string().min(8, "Password must be at least 8 characters").min(1, "Password is required"),
+  rememberMe: z.boolean(),
+});
+
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    rememberMe: false,
+
+  const form = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+    validators: {
+      onChange: loginSchema,
+    },
+    onSubmit: async ({ value }) => {
+      setIsLoading(true);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setIsLoading(false);
+
+      // Handle successful login
+      console.log("Login submitted:", value);
+    },
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    }
-    else if (!/\S[^\s@]*@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
-
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    }
-    else if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateForm())
-      return;
-
-    setIsLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsLoading(false);
-
-    // Handle successful login
-    console.log("Login submitted:", formData);
-  };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
@@ -75,119 +61,151 @@ function LoginPage() {
 
         {/* Login Form */}
         <div className="bg-card rounded-2xl border border-border p-8 shadow-sm">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+            className="space-y-6"
+          >
             <FieldGroup>
               {/* Email Field */}
-              <Field>
-                <FieldLabel>
-                  <Label htmlFor="email">Email address</Label>
-                </FieldLabel>
-                <FieldContent>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="you@example.com"
-                    value={formData.email}
-                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                    className="h-11"
-                    aria-invalid={!!errors.email}
-                  />
-                  {errors.email && (
-                    <FieldError>{errors.email}</FieldError>
-                  )}
-                </FieldContent>
-              </Field>
+              <form.Field
+                name="email"
+                children={field => (
+                  <Field>
+                    <FieldLabel>
+                      <Label htmlFor={field.name}>Email address</Label>
+                    </FieldLabel>
+                    <FieldContent>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        type="email"
+                        autoComplete="email"
+                        placeholder="you@example.com"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={e => field.handleChange(e.target.value)}
+                        className="h-11"
+                        aria-invalid={field.state.meta.isTouched && !!field.state.meta.errors.length}
+                      />
+                      <FieldError
+                        errors={field.state.meta.isTouched
+                          ? field.state.meta.errors.map(err => typeof err === "string" ? { message: err } : (err as { message?: string }))
+                          : undefined}
+                      />
+                    </FieldContent>
+                  </Field>
+                )}
+              />
 
               {/* Password Field */}
-              <Field>
-                <FieldLabel>
-                  <Label htmlFor="password">Password</Label>
-                </FieldLabel>
-                <FieldContent>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      autoComplete="current-password"
-                      placeholder="Enter your password"
-                      value={formData.password}
-                      onChange={e => setFormData({ ...formData, password: e.target.value })}
-                      className="h-11 pr-10"
-                      aria-invalid={!!errors.password}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                      tabIndex={-1}
-                    >
-                      {showPassword
-                        ? (
-                            <EyeOff className="h-4 w-4" />
-                          )
-                        : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                    </button>
-                  </div>
-                  {errors.password && (
-                    <FieldError>{errors.password}</FieldError>
-                  )}
-                  <FieldDescription>
-                    <Link
-                      to="/"
-                      className="text-sm text-primary hover:text-primary/80 transition-colors"
-                    >
-                      Forgot your password?
-                    </Link>
-                  </FieldDescription>
-                </FieldContent>
-              </Field>
+              <form.Field
+                name="password"
+                children={field => (
+                  <Field>
+                    <FieldLabel>
+                      <Label htmlFor={field.name}>Password</Label>
+                    </FieldLabel>
+                    <FieldContent>
+                      <div className="relative">
+                        <Input
+                          id={field.name}
+                          name={field.name}
+                          type={showPassword ? "text" : "password"}
+                          autoComplete="current-password"
+                          placeholder="Enter your password"
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={e => field.handleChange(e.target.value)}
+                          className="h-11 pr-10"
+                          aria-invalid={field.state.meta.isTouched && !!field.state.meta.errors.length}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                          tabIndex={-1}
+                        >
+                          {showPassword
+                            ? (
+                                <EyeOff className="h-4 w-4" />
+                              )
+                            : (
+                                <Eye className="h-4 w-4" />
+                              )}
+                        </button>
+                      </div>
+                      <FieldError
+                        errors={field.state.meta.isTouched
+                          ? field.state.meta.errors.map(err => typeof err === "string" ? { message: err } : (err as { message?: string }))
+                          : undefined}
+                      />
+                      <FieldDescription>
+                        <Link
+                          to="/"
+                          className="text-sm text-primary hover:text-primary/80 transition-colors"
+                        >
+                          Forgot your password?
+                        </Link>
+                      </FieldDescription>
+                    </FieldContent>
+                  </Field>
+                )}
+              />
 
               {/* Remember Me */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="remember-me"
-                    checked={formData.rememberMe}
-                    onCheckedChange={checked =>
-                      setFormData({ ...formData, rememberMe: checked as boolean })}
-                  />
-                  <Label
-                    htmlFor="remember-me"
-                    className="text-sm font-normal cursor-pointer"
-                  >
-                    Remember me
-                  </Label>
-                </div>
-              </div>
+              <form.Field
+                name="rememberMe"
+                children={field => (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id={field.name}
+                        checked={field.state.value}
+                        onCheckedChange={checked => field.handleChange(checked as boolean)}
+                      />
+                      <Label
+                        htmlFor={field.name}
+                        className="text-sm font-normal cursor-pointer"
+                      >
+                        Remember me
+                      </Label>
+                    </div>
+                  </div>
+                )}
+              />
             </FieldGroup>
 
             {/* Submit Button */}
-            <Button
-              type="submit"
-              variant="pill"
-              size="pill"
-              className="w-full"
-              disabled={isLoading}
-            >
-              {isLoading
-                ? (
-                    <span className="flex items-center gap-2">
-                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                      Signing in...
-                    </span>
-                  )
-                : (
-                    <span className="flex items-center gap-2">
-                      Sign in
-                      <ArrowRight className="h-4 w-4" />
-                    </span>
-                  )}
-            </Button>
+            <form.Subscribe
+              selector={state => [state.canSubmit, state.isSubmitting]}
+              children={([canSubmit, isSubmitting]) => (
+                <Button
+                  type="submit"
+                  variant="pill"
+                  size="pill"
+                  className="w-full"
+                  disabled={!canSubmit || isSubmitting || isLoading}
+                >
+                  {isSubmitting || isLoading
+                    ? (
+                        <span className="flex items-center gap-2">
+                          <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                          Signing in...
+                        </span>
+                      )
+                    : (
+                        <span className="flex items-center gap-2">
+                          Sign in
+                          <ArrowRight className="h-4 w-4" />
+                        </span>
+                      )}
+                </Button>
+              )}
+            />
           </form>
 
           {/* Divider */}
