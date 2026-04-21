@@ -2,7 +2,7 @@ import { useForm } from "@tanstack/react-form";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@workspace/ui/components/button";
 import { Checkbox } from "@workspace/ui/components/checkbox";
-import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@workspace/ui/components/field";
+import { Field, FieldContent, FieldError, FieldGroup, FieldLabel } from "@workspace/ui/components/field";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { ArrowRight, Check, Eye, EyeOff } from "@workspace/ui/icons";
@@ -97,7 +97,7 @@ function SignupPage() {
               {/* Name Field */}
               <form.Field
                 name="name"
-                children={(field) => (
+                children={field => (
                   <Field>
                     <FieldLabel>
                       <Label htmlFor={field.name}>Full name</Label>
@@ -128,7 +128,7 @@ function SignupPage() {
               {/* Email Field */}
               <form.Field
                 name="email"
-                children={(field) => (
+                children={field => (
                   <Field>
                     <FieldLabel>
                       <Label htmlFor={field.name}>Email address</Label>
@@ -233,26 +233,24 @@ function SignupPage() {
                             : undefined}
                         />
 
-                        <FieldDescription>
-                          <div className="grid grid-cols-2 gap-1 text-xs text-muted-foreground mt-2">
-                            <div className={`flex items-center gap-1 ${field.state.value.length >= 8 ? "text-revolut-teal" : ""}`}>
-                              <Check className={`h-3 w-3 ${field.state.value.length >= 8 ? "opacity-100" : "opacity-40"}`} />
-                              At least 8 characters
-                            </div>
-                            <div className={`flex items-center gap-1 ${/[A-Z]/.test(field.state.value) ? "text-revolut-teal" : ""}`}>
-                              <Check className={`h-3 w-3 ${/[A-Z]/.test(field.state.value) ? "opacity-100" : "opacity-40"}`} />
-                              One uppercase letter
-                            </div>
-                            <div className={`flex items-center gap-1 ${/\d/.test(field.state.value) ? "text-revolut-teal" : ""}`}>
-                              <Check className={`h-3 w-3 ${/\d/.test(field.state.value) ? "opacity-100" : "opacity-40"}`} />
-                              One number
-                            </div>
-                            <div className={`flex items-center gap-1 ${/[^A-Z0-9]/i.test(field.state.value) ? "text-revolut-teal" : ""}`}>
-                              <Check className={`h-3 w-3 ${/[^A-Z0-9]/i.test(field.state.value) ? "opacity-100" : "opacity-40"}`} />
-                              One special character
-                            </div>
+                        <div className="grid grid-cols-2 gap-1 text-xs text-muted-foreground mt-2">
+                          <div className={`flex items-center gap-1 ${field.state.value.length >= 8 ? "text-revolut-teal" : ""}`}>
+                            <Check className={`h-3 w-3 ${field.state.value.length >= 8 ? "opacity-100" : "opacity-40"}`} />
+                            At least 8 characters
                           </div>
-                        </FieldDescription>
+                          <div className={`flex items-center gap-1 ${/[A-Z]/.test(field.state.value) ? "text-revolut-teal" : ""}`}>
+                            <Check className={`h-3 w-3 ${/[A-Z]/.test(field.state.value) ? "opacity-100" : "opacity-40"}`} />
+                            One uppercase letter
+                          </div>
+                          <div className={`flex items-center gap-1 ${/\d/.test(field.state.value) ? "text-revolut-teal" : ""}`}>
+                            <Check className={`h-3 w-3 ${/\d/.test(field.state.value) ? "opacity-100" : "opacity-40"}`} />
+                            One number
+                          </div>
+                          <div className={`flex items-center gap-1 ${/[^A-Z0-9]/i.test(field.state.value) ? "text-revolut-teal" : ""}`}>
+                            <Check className={`h-3 w-3 ${/[^A-Z0-9]/i.test(field.state.value) ? "opacity-100" : "opacity-40"}`} />
+                            One special character
+                          </div>
+                        </div>
                       </FieldContent>
                     </Field>
                   );
@@ -262,7 +260,7 @@ function SignupPage() {
               {/* Confirm Password Field */}
               <form.Field
                 name="confirmPassword"
-                children={(field) => (
+                children={field => (
                   <Field>
                     <FieldLabel>
                       <Label htmlFor={field.name}>Confirm password</Label>
@@ -309,7 +307,7 @@ function SignupPage() {
               {/* Terms Checkbox */}
               <form.Field
                 name="acceptTerms"
-                children={(field) => (
+                children={field => (
                   <div className="flex items-start space-x-3">
                     <Checkbox
                       id={field.name}
