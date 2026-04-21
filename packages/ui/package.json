@@ -1,11 +1,12 @@
 {
   "name": "@workspace/ui",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "exports": {
     "./global.css": "./src/styles/global.css",
     "./lib/*": "./src/lib/*.ts",
+    "./icons": "./src/components/icons.ts",
     "./components/*": "./src/components/ui/*.tsx",
     "./hooks/*": "./src/hooks/*.ts"
   },
@@ -14,6 +15,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
+    "@fontsource-variable/inter": "^5.2.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

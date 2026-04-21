@@ -1,13 +1,20 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
 
 @custom-variant dark (&:is(.dark *));
 @source "../../../apps/**/*.{ts,tsx}";
 @source "../../../components/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
+/* Revolut-inspired Design System */
 @theme inline {
+  /* Font Families */
+  --font-display: "Aeonik Pro", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* Colors - Revolut Palette */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -27,18 +34,37 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Brand Colors */
+  --color-revolut-dark: #191c1f;
+  --color-revolut-white: #ffffff;
+  --color-revolut-light: #f4f4f4;
+  --color-revolut-blue: #494fdf;
+  --color-revolut-teal: #00a87e;
+  --color-revolut-pink: #e61e49;
+  --color-revolut-danger: #e23b4a;
+  --color-revolut-warning: #ec7e00;
+  --color-revolut-mid-slate: #505a63;
+  --color-revolut-cool-gray: #8d969e;
+
+  /* Chart Colors */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Border Radius - Revolut uses generous rounding */
+  --radius-sm: 0.75rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.875rem;
+  --radius-3xl: 2.5rem;
+  --radius-4xl: 3rem;
+  --radius-pill: 9999px;
+
+  /* Sidebar Colors */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -47,75 +73,107 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Typography Scale */
+  --font-size-display-mega: 8.5rem;
+  --font-size-display-hero: 5rem;
+  --font-size-section: 3rem;
+  --font-size-subhead: 2.5rem;
+  --font-size-card: 2rem;
+  --font-size-feature: 1.5rem;
+  --font-size-nav: 1.25rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-body: 1rem;
+
+  /* Line Heights */
+  --line-height-display: 1;
+  --line-height-section: 1.21;
+  --line-height-subhead: 1.2;
+  --line-height-card: 1.19;
+  --line-height-feature: 1.33;
+  --line-height-nav: 1.4;
+  --line-height-body: 1.5;
+  --line-height-body-lg: 1.56;
+
+  /* Letter Spacing */
+  --tracking-display-mega: -0.17em;
+  --tracking-display-hero: -0.05em;
+  --tracking-section: -0.03em;
+  --tracking-subhead: -0.025em;
+  --tracking-card: -0.02em;
+  --tracking-body: 0.015em;
+  --tracking-body-lg: -0.005em;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: #ffffff;
+  --foreground: #191c1f;
+  --card: #ffffff;
+  --card-foreground: #191c1f;
+  --popover: #ffffff;
+  --popover-foreground: #191c1f;
+  --primary: #191c1f;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f4;
+  --secondary-foreground: #191c1f;
+  --muted: #f4f4f4;
+  --muted-foreground: #505a63;
+  --accent: #494fdf;
+  --accent-foreground: #ffffff;
+  --destructive: #e23b4a;
+  --destructive-foreground: #ffffff;
+  --border: #c9c9cd;
+  --input: #c9c9cd;
+  --ring: #494fdf;
+  --chart-1: #494fdf;
+  --chart-2: #00a87e;
+  --chart-3: #ec7e00;
+  --chart-4: #e61e49;
+  --chart-5: #936d62;
+  --sidebar: #f4f4f4;
+  --sidebar-foreground: #191c1f;
+  --sidebar-primary: #191c1f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f4;
+  --sidebar-accent-foreground: #191c1f;
+  --sidebar-border: #c9c9cd;
+  --sidebar-ring: #494fdf;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #191c1f;
+  --foreground: #f4f4f4;
+  --card: #1e2226;
+  --card-foreground: #f4f4f4;
+  --popover: #1e2226;
+  --popover-foreground: #f4f4f4;
+  --primary: #f4f4f4;
+  --primary-foreground: #191c1f;
+  --secondary: #2a2f33;
+  --secondary-foreground: #f4f4f4;
+  --muted: #2a2f33;
+  --muted-foreground: #8d969e;
+  --accent: #494fdf;
+  --accent-foreground: #ffffff;
+  --destructive: #e23b4a;
+  --destructive-foreground: #ffffff;
+  --border: rgba(244, 244, 244, 0.1);
+  --input: rgba(244, 244, 244, 0.15);
+  --ring: #494fdf;
+  --chart-1: #494fdf;
+  --chart-2: #00a87e;
+  --chart-3: #ec7e00;
+  --chart-4: #e61e49;
+  --chart-5: #936d62;
+  --sidebar: #1e2226;
+  --sidebar-foreground: #f4f4f4;
+  --sidebar-primary: #494fdf;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2a2f33;
+  --sidebar-accent-foreground: #f4f4f4;
+  --sidebar-border: rgba(244, 244, 244, 0.1);
+  --sidebar-ring: #494fdf;
 }
 
 @layer base {
@@ -123,6 +181,21 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+}
+
+/* Revolut-style pill buttons */
+@layer components {
+  .btn-pill {
+    @apply rounded-full px-8 py-3.5 font-medium transition-opacity;
+  }
+  .btn-pill:hover {
+    @apply opacity-85;
   }
 }

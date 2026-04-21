@@ -4,8 +4,9 @@ A TanStack Start full-stack monorepo with pnpm workspaces.
 
 ## Structure
 
-- `apps/web` - TanStack Start web application
-- `apps/api` - Hono API server
+- `apps/web` - TanStack Start web application (port 5173)
+- `apps/api` - Hono API server (port 3000)
+- `packages/ui` - UI components, hooks, styles
 - `packages/hono` - Shared Hono utilities
 - `packages/eslint-config` - ESLint configuration
 
@@ -27,3 +28,4 @@ pnpm dev
 - `pnpm dev` - Start all apps in development mode
 - `pnpm build` - Build all apps
 - `pnpm lint` - Lint all packages
+- `pnpm lint:fix` - Lint with auto-fix

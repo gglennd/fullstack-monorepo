@@ -11,7 +11,6 @@ import { RootComponent } from "@/components/root-component";
 
 export const Route = createRootRouteWithContext()({
   head: () => ({
-    links: [{ rel: "stylesheet", href: globalCss }],
     meta: [
       {
         charSet: "utf-8",
@@ -21,9 +20,15 @@ export const Route = createRootRouteWithContext()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start | Type-Safe, Client-First, Full-Stack React Framework",
-        description: "TanStack Start is a type-safe, client-first, full-stack React framework.",
+        title: "Starter | Modern Full-Stack Starter Kit",
+        description: "A modern full-stack starter kit with TanStack Start, Tailwind CSS, and shadcn/ui.",
       },
+    ],
+    links: [
+      { rel: "stylesheet", href: globalCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" },
     ],
   }),
   notFoundComponent: () => <NotFound />,
