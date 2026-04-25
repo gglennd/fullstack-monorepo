@@ -4,16 +4,10 @@
     "lib": [
       "ESNext"
     ],
-    "module": "esnext",
-    "moduleResolution": "bundler",
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    },
-    "strict": true,
-    "noEmit": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true
+    }
   }
 }

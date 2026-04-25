@@ -14,10 +14,6 @@
       "@/*": [
         "./src/*"
       ]
-    },
-    "strict": true,
-    "noEmit": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true
+    }
   }
 }

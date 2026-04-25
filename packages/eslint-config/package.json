@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "exports": {
-    ".": "./lib/index.ts"
+    ".": "./index.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^8.2.0",
